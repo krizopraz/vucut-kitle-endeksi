@@ -20,7 +20,9 @@ const ProfilCizelge = () => {
             <article>
                 <div>
                     <h1>Tüm Vücut Kitle İndeksi Değerlerin {user.userName}</h1>
-                    
+                    <ol>
+                        {user.bmi.map(num=> <li key={Math.random+user.userName+num+""+Math.random}>{num}</li>  )}
+                    </ol>
                 </div>
             </article>
         </div>
