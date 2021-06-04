@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 const ProfilCizelge = ({user,setUser}) => {
-    const [regUser , setRegUser] = useState("")
+    const [regUser , setRegUser] = useState()
     function profilOlustur(){
         let profile = JSON.stringify({userName:regUser,bmi:[]})
         localStorage.setItem("user",profile)
@@ -19,7 +19,10 @@ const ProfilCizelge = ({user,setUser}) => {
             </article>
             <article>
                 <div>
-                    <h1>History{user}</h1>
+                    <h1>Tüm Vücut Kitle İndeksi Değerlerin {user}</h1>
+                    <ol>
+                        {JSON.parse(localStorage.getItem("user")).bmi.map(num=><li key={Math.random*num+'a'+num}>{num}</li>)}
+                    </ol>
                 </div>
             </article>
         </div>

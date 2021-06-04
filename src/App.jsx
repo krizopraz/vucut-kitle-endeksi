@@ -1,34 +1,19 @@
 import {BrowserRouter as Router , Switch , Route , NavLink} from 'react-router-dom'
 import Bmi from './components/Bmi'
 import Profil from './components/Profil'
-import React,{ useEffect,useState } from 'react'
+import React,{ useState } from 'react'
 import styled from 'styled-components'
 //import PropTypes from 'prop-types'
 function App(){
 
-  const [user,setUser] = useState({userName:null,bmi:[]})
-  useEffect(()=>{
-    const userMain = JSON.parse(localStorage.getItem('user'))
-    if(userMain !== null){
-      setUser(userMain)
-    }
-    [user]
-  })
-
-  const UserSection = ({user}) =>{
-    if(user === null){
-      console.log(user)
-      return (<h4>Profil kısmından kendi profilinizi oluşturabilirsiniz !</h4>)
-    }else{
-      return( <h4>Merhaba {user} </h4> )
-    }
-  }
+  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  user === null ? setUser({userName:null,bmi:[]}):user
 
     return(
     <Router>
         <Nav>
             <h1>Vücut Kütle Endeksi Hesaplama</h1>
-            <UserSection user={user.userName} />
+            {user!== null ? <h3>Merhaba {user.userName}!</h3> : <h3>Profilden kayıt olabilirsiniz</h3> }
           <Ul>
             <li>
               <NavLink exact activeClassName='active' to='/'>Vücüt Kütle Endeksi Hesapla</NavLink>
@@ -40,10 +25,10 @@ function App(){
         </Nav>
         <Switch>
           <Route path='/profil'>
-              <Profil  data={user} setUser={setUser} />
+             <Profil  data={user} setUser={setUser} />
           </Route>
           <Route path='/'>
-            <Bmi />
+            <Bmi user={user} setUser={setUser}/>
           </Route>
         </Switch>
       </Router>

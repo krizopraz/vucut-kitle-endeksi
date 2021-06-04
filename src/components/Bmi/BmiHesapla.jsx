@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-
-const BmiHesapla =() =>{
+import PropTypes from "prop-types"
+const BmiHesapla =({user,setUser}) =>{
     const [height, setHeight] = useState(0), [weight,setWeight] = useState(0), [bmi , setBmi] = useState(0), [klasman, setKlasman] = useState({})
     function calculateBmi(){
         let calculated = weight/(height**2/100**2)
@@ -21,6 +22,18 @@ const BmiHesapla =() =>{
             setKlasman({ad:"3. sınıf Obez ",color:"firebrick"})
         }
     }
+    useEffect(()=>{
+        if(user !== null){
+            console.log(user)
+            let newUser =  user
+            if(bmi !== 0) {
+            newUser.bmi.push(bmi)
+            setUser(newUser)
+            localStorage.setItem("user",JSON.stringify(newUser))
+            }
+        }
+        
+    },[klasman])
     return(
         <Container>
             <div>
@@ -41,6 +54,10 @@ const BmiHesapla =() =>{
 
         </Container>
     )
+}
+BmiHesapla.propTypes = {
+    user: PropTypes.object,
+    setUser:PropTypes.func
 }
 const Container = styled.article`
     display:grid;

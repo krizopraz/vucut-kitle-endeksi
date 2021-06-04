@@ -2,13 +2,19 @@ import BmiHesapla from './BmiHesapla'
 import BmiNedir from './BmiNedir'
 import React from 'react'
 import styled from 'styled-components'
-const Bmi = ()=>{
+import PropTypes from 'prop-types'
+const Bmi = (props)=>{
     return (
         <Section>
-            <BmiHesapla/>
+            <BmiHesapla user={props.user} setUser={props.setUser}/>
             <BmiNedir/>
         </Section>
     )
+}
+Bmi.propTypes = {
+    props:PropTypes.object,
+    user:PropTypes.object,
+    setUser:PropTypes.func
 }
 
 const Section = styled.section`
