@@ -5,15 +5,15 @@ import React,{ useState } from 'react'
 import styled from 'styled-components'
 //import PropTypes from 'prop-types'
 function App(){
-
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
-  user === null ? setUser({userName:null,bmi:[]}):user
-
+  const db = JSON.parse(localStorage.getItem('user'))
+  const [user,setUser] = useState(db === null ?{userName:'',bmi:[]}:db)
+  if(db === null){localStorage.setItem('user',JSON.stringify({userName:'',bmi:[]}))}
+  console.log(user)
     return(
     <Router>
         <Nav>
             <h1>Vücut Kütle Endeksi Hesaplama</h1>
-            {user!== null ? <h3>Merhaba {user.userName}!</h3> : <h3>Profilden kayıt olabilirsiniz</h3> }
+            { user.userName !== ''  ? <h3>Merhaba {user.userName}!</h3> : <h3>Profilden kayıt olabilirsiniz</h3> }
           <Ul>
             <li>
               <NavLink exact activeClassName='active' to='/'>Vücüt Kütle Endeksi Hesapla</NavLink>

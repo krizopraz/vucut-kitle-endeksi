@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-const ProfilCizelge = ({user,setUser}) => {
-    const [regUser , setRegUser] = useState()
+const ProfilCizelge = () => {
+    const prof = JSON.parse(localStorage.getItem('user')) === null ? {userName:'',bmi:[]}: JSON.parse(localStorage.getItem('user'))
+    const [regUser , setRegUser] = useState(),  [user,] = useState(prof)
     function profilOlustur(){
         let profile = JSON.stringify({userName:regUser,bmi:[]})
         localStorage.setItem("user",profile)
-        setUser({userName:regUser,bmi:[]})
     }
     return(
         <div>
@@ -19,10 +19,8 @@ const ProfilCizelge = ({user,setUser}) => {
             </article>
             <article>
                 <div>
-                    <h1>Tüm Vücut Kitle İndeksi Değerlerin {user}</h1>
-                    <ol>
-                        {JSON.parse(localStorage.getItem("user")).bmi.map(num=><li key={Math.random*num+'a'+num}>{num}</li>)}
-                    </ol>
+                    <h1>Tüm Vücut Kitle İndeksi Değerlerin {user.userName}</h1>
+                    
                 </div>
             </article>
         </div>
